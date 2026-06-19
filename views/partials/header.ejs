@@ -1,0 +1,13 @@
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand" href="/">
+        <span class="brand__mark">&#9632;</span>
+        <span class="brand__name">DSA&nbsp;Roadmap</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/" class="nav__link <%= path === '/' ? 'is-active' : '' %>" <%= path === '/' ? 'aria-current="page"' : '' %>>Roadmap</a>
+        <a href="/about" class="nav__link <%= path === '/about' ? 'is-active' : '' %>" <%= path === '/about' ? 'aria-current="page"' : '' %>>About</a>
+        <button type="button" class="nav__reset" data-reset-progress aria-label="Reset all saved progress">Reset progress</button>
+      </nav>
+    </div>
+  </header>

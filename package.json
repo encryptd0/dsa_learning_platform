@@ -1,0 +1,18 @@
+{
+  "name": "dsa-roadmap",
+  "version": "1.0.0",
+  "description": "A free, non-commercial DSA learning site organizing free LeetCode problems along the NeetCode-style roadmap.",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

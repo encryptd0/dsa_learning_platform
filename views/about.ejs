@@ -1,0 +1,42 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="wrap prose">
+  <h1 class="prose__title">About this <span class="hl">project</span></h1>
+
+  <p>
+    <strong>DSA Roadmap</strong> is a free, non-commercial tool for learning data
+    structures and algorithms. It organizes <%= totalProblems %> well-known
+    LeetCode practice problems into 18 topics arranged as a dependency
+    roadmap — each topic builds on the ones before it, so you always know what
+    to learn next.
+  </p>
+
+  <h2>How it works</h2>
+  <ul>
+    <li>Pick a topic from the roadmap and work through its problems.</li>
+    <li>Each problem links out to <a href="https://leetcode.com" rel="noopener" target="_blank">LeetCode</a>, where you solve it.</li>
+    <li>Tick problems off as you go. Your progress is saved only in your browser — there are no accounts and nothing is sent to a server.</li>
+    <li>Free problems are shown by default. LeetCode Premium problems are hidden behind a toggle and clearly badged.</li>
+  </ul>
+
+  <h2>No ads, no accounts, no monetization</h2>
+  <p>
+    There are no ads, no paywalls, and no tracking. This exists purely as a
+    learning aid for myself and anyone else who finds it useful.
+  </p>
+
+  <h2>Credit</h2>
+  <p>
+    The topic grouping and unlock order are inspired by the excellent
+    <a href="https://neetcode.io" rel="noopener" target="_blank">NeetCode</a>
+    roadmap. All problems belong to LeetCode; this site only links to them and
+    does not host any problem content.
+  </p>
+
+  <p class="prose__meta">Catalog source: <%= meta.source %>.</p>
+</main>
+
+<%- include('partials/footer') %>
+</body>
+</html>

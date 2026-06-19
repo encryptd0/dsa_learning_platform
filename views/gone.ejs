@@ -1,0 +1,24 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="wrap centered-state">
+  <p class="big-code">!</p>
+  <h1 class="centered-state__title">This problem may have <span class="hl">moved</span>.</h1>
+  <p class="centered-state__body">
+    <% if (problemTitle) { %>
+      <strong><%= problemTitle %></strong> couldn't be reached on LeetCode. Problems
+      occasionally get renamed or removed. Try searching for it instead.
+    <% } else { %>
+      That problem couldn't be reached on LeetCode. Problems occasionally get
+      renamed or removed. Try searching LeetCode directly.
+    <% } %>
+  </p>
+  <div class="centered-state__actions">
+    <a class="btn" href="<%= searchUrl %>" target="_blank" rel="noopener">Search LeetCode <span aria-hidden="true">&#8599;</span></a>
+    <a class="btn btn--ghost" href="/">Back to the roadmap</a>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
+</body>
+</html>

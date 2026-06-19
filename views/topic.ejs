@@ -1,0 +1,105 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="wrap" data-topic="<%= category.id %>">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Roadmap</a> <span aria-hidden="true">/</span> <span><%= category.title %></span>
+  </nav>
+
+  <header class="topic-head">
+    <p class="topic-head__order">Topic <%= String(category.order).padStart(2, '0') %></p>
+    <h1 class="topic-head__title"><span class="hl"><%= category.title %></span></h1>
+    <p class="topic-head__blurb"><%= category.blurb %></p>
+
+    <% if (category.unlocks && category.unlocks.length) { %>
+      <p class="topic-head__unlocks">
+        Unlocks:
+        <% category.unlocks.forEach(function (u) { %>
+          <a class="chip" href="/topic/<%= u %>"><%= u.replace(/-/g, ' ') %></a>
+        <% }); %>
+      </p>
+    <% } %>
+
+    <p class="topic-head__progress">
+      <span data-topic-count>0</span> / <span data-topic-total><%= totalInTopic %></span> solved
+      <span class="topic-head__free">· <%= freeCount %> free</span>
+    </p>
+  </header>
+
+  <!-- Controls: search, difficulty filter, premium toggle -->
+  <section class="controls" aria-label="Filter problems">
+    <div class="controls__search">
+      <label class="visually-hidden" for="search">Search problems by title</label>
+      <input
+        type="search"
+        id="search"
+        class="input"
+        placeholder="Search problems…"
+        autocomplete="off"
+        data-search
+      />
+    </div>
+
+    <div class="controls__group" role="group" aria-label="Filter by difficulty">
+      <button type="button" class="toggle is-active" data-difficulty="all" aria-pressed="true">All</button>
+      <button type="button" class="toggle" data-difficulty="Easy" aria-pressed="false">Easy</button>
+      <button type="button" class="toggle" data-difficulty="Medium" aria-pressed="false">Medium</button>
+      <button type="button" class="toggle" data-difficulty="Hard" aria-pressed="false">Hard</button>
+    </div>
+
+    <label class="switch">
+      <input type="checkbox" data-show-premium aria-label="Show LeetCode Premium problems" />
+      <span class="switch__label">Show Premium</span>
+    </label>
+  </section>
+
+  <p class="empty-state" data-empty hidden>No problems match your filters.</p>
+
+  <ol class="problems" data-problems>
+    <% category.problems.forEach(function (p, i) { %>
+      <%
+        var key = category.id + '::' + p.slug;
+        var diffClass = 'badge--' + p.difficulty.toLowerCase();
+      %>
+      <li
+        class="problem"
+        data-problem
+        data-key="<%= key %>"
+        data-title="<%= p.title.toLowerCase() %>"
+        data-difficulty="<%= p.difficulty %>"
+        data-premium="<%= p.isPremium ? 'true' : 'false' %>"
+        <%= p.isPremium ? 'hidden' : '' %>
+      >
+        <span class="problem__index"><%= String(i + 1).padStart(2, '0') %></span>
+
+        <label class="problem__check">
+          <input type="checkbox" data-done="<%= key %>" aria-label="Mark <%= p.title %> as done" />
+          <span class="problem__check-box" aria-hidden="true"></span>
+        </label>
+
+        <span class="problem__title"><%= p.title %></span>
+
+        <span class="problem__badges">
+          <span class="badge <%= diffClass %>"><%= p.difficulty %></span>
+          <% if (p.isPremium) { %>
+            <span class="badge badge--premium" aria-label="LeetCode Premium">Premium</span>
+          <% } else { %>
+            <span class="badge badge--free">Free</span>
+          <% } %>
+        </span>
+
+        <span class="problem__links">
+          <a class="problem__open" href="<%= p.url %>" target="_blank" rel="noopener" aria-label="Open <%= p.title %> on LeetCode (new tab)">
+            Open <span aria-hidden="true">&#8599;</span>
+          </a>
+          <a class="problem__broken" href="/gone?title=<%= encodeURIComponent(p.title) %>" aria-label="Report <%= p.title %> as a broken link">broken?</a>
+        </span>
+      </li>
+    <% }); %>
+  </ol>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/topic.js"></script>
+</body>
+</html>

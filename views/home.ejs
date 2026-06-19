@@ -1,0 +1,65 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main" class="wrap">
+  <section class="hero">
+    <h1 class="hero__title">Learn DSA the <span class="hl">structured</span> way.</h1>
+    <p class="hero__lede">
+      Work through free LeetCode problems topic by topic, following a proven
+      dependency roadmap. Each topic unlocks the next.
+    </p>
+    <p class="progress-pill" data-global-progress>
+      <span class="progress-pill__count" data-global-count>0</span>
+      <span class="progress-pill__sep">/</span>
+      <span class="progress-pill__total"><%= totalProblems %></span>
+      <span class="progress-pill__label">solved</span>
+    </p>
+  </section>
+
+  <!-- Roadmap graph. Nodes are real links; the SVG connectors are decorative
+       and drawn client-side after layout so the graph stays responsive. -->
+  <section class="graph-section" aria-labelledby="graph-heading">
+    <h2 id="graph-heading" class="section-heading">The <span class="hl">roadmap</span></h2>
+    <div class="graph" data-graph>
+      <svg class="graph__lines" data-graph-lines aria-hidden="true" focusable="false"></svg>
+      <% graphBands.forEach(function (band) { %>
+        <div class="graph__band">
+          <% band.forEach(function (c) { %>
+            <a class="node" href="/topic/<%= c.id %>" data-node="<%= c.id %>">
+              <span class="node__order"><%= String(c.order).padStart(2, '0') %></span>
+              <span class="node__title"><%= c.title %></span>
+              <span class="node__count" data-node-count="<%= c.id %>">0/<%= c.problems.length %></span>
+            </a>
+          <% }); %>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+
+  <!-- Ordered topic list (the fallback / linear path). -->
+  <section class="topics-section" aria-labelledby="topics-heading">
+    <h2 id="topics-heading" class="section-heading">All <span class="hl">topics</span> in order</h2>
+    <ol class="topic-list">
+      <% categories.forEach(function (c) { %>
+        <li class="topic-list__item" data-topic-row="<%= c.id %>">
+          <a class="topic-list__link" href="/topic/<%= c.id %>">
+            <span class="topic-list__order"><%= String(c.order).padStart(2, '0') %></span>
+            <span class="topic-list__body">
+              <span class="topic-list__title"><%= c.title %></span>
+              <span class="topic-list__blurb"><%= c.blurb %></span>
+            </span>
+            <span class="topic-list__count" data-row-count="<%= c.id %>">0/<%= c.problems.length %></span>
+          </a>
+        </li>
+      <% }); %>
+    </ol>
+  </section>
+</main>
+
+<!-- Minimal graph data for the client (connectors + progress styling). -->
+<script id="graph-data" type="application/json"><%- JSON.stringify(graphData) %></script>
+
+<%- include('partials/footer') %>
+<script src="/js/home.js"></script>
+</body>
+</html>
